@@ -1,0 +1,11 @@
+body{
+    background-color: rgb(241, 242, 246);
+}
+.removable_tag .close{font-size: 12px;}
+.edittag-input{width: 80px;}
+#top-tag-filter .badge{cursor: pointer;}
+#main-pane .remove{
+    cursor: pointer;
+}
+#main-pane .done .todo-text{text-decoration: line-through; color: #999;}
+#main-pane .list-group-item-heading{line-height: 36px;}
