@@ -11,6 +11,9 @@
 
       <a class="navbar-brand" href="index.html">ToDos</a>
     </div>
+   <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-4">
+      <a href="/createPost" class="btn btn-warning navbar-btn">Post</a>
+    </div>-->
   </div>
 </nav>
 
@@ -58,7 +61,9 @@
   {{/if}}
   <br>
 </template>
-
+<!--<div class="panel">
+      {{> done_filter}}
+    </div>-->
 <template name="todos">
   {{#if any_list_selected}}
   <div id="items-view">
@@ -70,9 +75,7 @@
         <input class="form-control" type="text" id="new-todo" placeholder="New item"/>
       </div>
     </div>
-    <div class="panel">
-      {{> done_filter}}
-    </div>
+
     <div id="item-list" class="list-group">
       {{#each todos}}
       {{> todo_item}}

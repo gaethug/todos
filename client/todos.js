@@ -191,8 +191,6 @@ Template.todos.todos = function () {
     sel.done = done_filter=="done"?true:false;
   }
 
-
-
   return Todos.find(sel, {sort: {timestamp: 1}});
 };
 
@@ -287,6 +285,7 @@ Template.done_filter.types = function () {
   var total_count = 0;
 
   Todos.find({list_id: Session.get('list_id')}).forEach(function (todo) {
+
     if(todo.done){
       type_infos[1].count++;
     }else{
