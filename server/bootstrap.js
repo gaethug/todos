@@ -1,8 +1,8 @@
 // if the database is empty on server start, create some sample data.
 Meteor.startup(function () {
-  if (Lists.find().count() === 0) {
+  /*if (Lists.find().count() === 0) {
     var data = [
-      /*{name: "Meteor Principles",
+      {name: "Meteor Principles",
        contents: [
          ["Data on the Wire", "Simplicity", "Better UX", "Fun"],
          ["One Language", "Simplicity", "Fun"],
@@ -35,7 +35,7 @@ Meteor.startup(function () {
          ["Nikola Tesla", "Physics"],
          ["Claude Shannon", "Math", "Computer Science"]
        ]
-      }*/
+      }
     ];
 
     var timestamp = (new Date()).getTime();
@@ -50,5 +50,5 @@ Meteor.startup(function () {
         timestamp += 1; // ensure unique timestamp.
       }
     }
-  }
+  }*/
 });

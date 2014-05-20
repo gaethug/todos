@@ -82,43 +82,39 @@
 </template>
 
 <template name="todo_item">
+    <a class="list-group-item todo {{done_class}}">
+        <h4 class="list-group-item-heading">
+            {{#if editing}}
+            <div class="edit">
+                <input id="todo-input" class="form-control" type="text" value="{{text}}"/>
+            </div>
+            {{else}}
+            <div class="pull-right">
+                <span class="close destroy" aria-hidden="true">&times;</span>
+            </div>
+            <input class="check" name="markdone" type="checkbox" {{{done_checkbox}}} />
+            <span class="todo-text">{{text}}</span>
+            {{/if}}
+        </h4>
 
-        <a class="list-group-item todo {{done_class}}" >
-            <h4 class="list-group-item-heading">
-                {{#if editing}}
-                <div class="edit">
-                    <input id="todo-input" class="form-control" type="text" value="{{text}}" />
-                </div>
-                {{else}}
-                <div class="pull-right">
-                    <span class="close destroy" aria-hidden="true">&times;</span>
-                </div>
-                <input class="check" name="markdone" type="checkbox" {{{done_checkbox}}} />
-                <span class="todo-text">{{text}}</span>
-                {{/if}}
-            </h4>
+        <p class="list-group-item-text">
 
-            <p class="list-group-item-text">
-
-                {{#each tag_objs}}
+            {{#each tag_objs}}
                         <span class="badge badge-default tag removable_tag">
                             {{tag}}&nbsp;<span class="close remove" aria-hidden="true">&times;</span>
                         </span>
-                {{/each}}
-                {{#if adding_tag}}
+            {{/each}}
+            {{#if adding_tag}}
                         <span class="tag edittag">
-                                <input type="text" id="edittag-input" value="" />
+                                <input type="text" id="edittag-input" value=""/>
                         </span>
-                {{else}}
+            {{else}}
                         <span class="tag addtag">
                             +tag
                         </span>
-                {{/if}}
-            </p>
-        </a>
-
-
-
+            {{/if}}
+        </p>
+    </a>
 </template>
 
 <template name="tag_filter">
