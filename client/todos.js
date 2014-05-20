@@ -10,6 +10,8 @@ Session.setDefault('list_id', null);
 // Name of currently selected tag for filtering
 Session.setDefault('tag_filter', null);
 
+Session.setDefault('done_filter', "all");
+
 // When adding tag to a todo, ID of the todo
 Session.setDefault('editing_addtag', null);
 
@@ -273,13 +275,26 @@ Template.todo_item.events(okCancelEvents(
 
 // Pick out the unique tags from all todos in current list.
 Template.done_filter.types = function () {
-  return [{type:"all",text:"All"},{type:"done",text:"Done"},{type:"undone",text:"Undone"}];
-};
+  var type_infos = [
+    {type:"all", count:0, type_text:"TOTAL"},
+    {type:"done", count:0, type_text:"DONE"},
+    {type:"undone", count:0, type_text:"UNDONE"}
+  ];
+  var total_count = 0;
 
+  Todos.find({list_id: Session.get('list_id')}).forEach(function (todo) {
+    if(todo.done){
+      type_infos[1].count++;
+    }else{
+      type_infos[2].count++;
+    }
+    type_infos[0].count++;
+  });
+  return type_infos;
+};
 Template.done_filter.selected = function () {
   return Session.equals('done_filter', this.type) ? 'active' : '';
 };
-
 Template.done_filter.events({
   'mousedown .type': function () {
     if (Session.equals('done_filter', this.type))

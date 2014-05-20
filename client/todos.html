@@ -121,7 +121,7 @@
 <template name="done_filter">
     <ul id="done-filter" class="nav nav-tabs nav-justified">
       {{#each types}}
-        <li class="{{selected}} type"><a>{{text}}</a></li>
+        <li class="{{selected}} type"><a><small>{{type_text}} ({{count}})</small></a></li>
       {{/each}}
     </ul>
 </template>
