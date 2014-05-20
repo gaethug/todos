@@ -5,7 +5,7 @@ body{
 .edittag-input{width: 80px;}
 #top-tag-filter .badge{cursor: pointer;}
 
-#main-pane .done {background-color: rgb(241, 242, 246);}
+/*#main-pane .done {background-color: rgb(241, 242, 246);}*/
 #main-pane .done .todo-text{text-decoration: line-through; color: #999;}
 /*#main-pane .panel{margin-bottom: 0;}
 #main-pane .list-group{border-top-left-radius: 0; border-top-right-radius:0;}
