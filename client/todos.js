@@ -117,8 +117,12 @@ Template.lists.events(okCancelEvents(
   '#list-name-input',
   {
     ok: function (value) {
-      Lists.update(this._id, {$set: {name: value}});
-      Session.set('editing_listname', null);
+      if(value === " "){
+        Lists.remove(this._id);
+      }else{
+        Lists.update(this._id, {$set: {name: value}});
+        Session.set('editing_listname', null);
+      }
     },
     cancel: function () {
       Session.set('editing_listname', null);
