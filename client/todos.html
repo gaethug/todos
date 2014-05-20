@@ -1,130 +1,138 @@
 <head>
   <title>Todos</title>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
 </head>
 
 <body>
 <nav class="navbar navbar-default navbar-custom" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
+  <div class="container">
+    <div class="navbar-header">
 
-            <a class="navbar-brand" href="index.html">ToDos</a>
-        </div>
+      <a class="navbar-brand" href="index.html">ToDos</a>
     </div>
+  </div>
 </nav>
 
 <div class="container">
-    <div class="row section">
-        <div class="col-sm-3">
-            <div id="side-pane">
-                {{> lists}}
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div id="top-tag-filter">
-                {{> tag_filter}}
-            </div>
-
-            <div id="main-pane">
-                {{> todos}}
-            </div>
-        </div>
+  <div class="row section">
+    <div class="col-sm-3">
+      <div id="side-pane">
+        {{> lists}}
+      </div>
     </div>
+    <div class="col-sm-9">
+      <div id="top-tag-filter">
+        {{> tag_filter}}
+      </div>
+      <div id="main-pane">
+        {{> todos}}
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 
 
 <template name="lists">
-    <div class="well well-lg hidden-xs"><strong>Category</strong></div>
-    {{#if loading}}
-    <div id="lists">Loading...</div>
-    {{else}}
-    <div id="lists">
-        <div class="list-group">
-            {{#each lists}}
-                <a class="list-group-item list {{selected}}" href="/{{_id}}">
-                {{#if editing}}
-                    <input class="list-name-input form-control" id="list-name-input" type="text" value="{{name}}"/>
-                {{else}}
-                            {{name}}
-                {{/if}}
-                </a>
-            {{/each}}
-        </div>
+  <div class="well well-lg hidden-xs"><strong>Category</strong></div>
+  {{#if loading}}
+  <div id="lists">Loading...</div>
+  {{else}}
+  <div id="lists">
+    <div class="list-group">
+      {{#each lists}}
+      <a class="list-group-item list {{selected}}" href="/{{_id}}">
+        {{#if editing}}
+        <input class="list-name-input form-control" id="list-name-input" type="text" value="{{name}}"/>
+        {{else}}
+        {{name}}
+        {{/if}}
+      </a>
+      {{/each}}
     </div>
-    <div id="createList">
-        <input type="text" id="new-list" class="form-control" placeholder="New Category"/>
-    </div>
-    {{/if}}
-    <br>
+  </div>
+  <div id="createList">
+    <input type="text" id="new-list" class="form-control" placeholder="New Category"/>
+  </div>
+  {{/if}}
+  <br>
 </template>
 
 <template name="todos">
-    {{#if any_list_selected}}
-    <div id="items-view">
-        {{#if loading}}
-        Loading...
-        {{else}}
-        <div id="new-todo-box row">
-            <div class="form-group">
-                <input class="form-control" type="text" id="new-todo" placeholder="New item"/>
-            </div>
-        </div>
-        <div id="item-list" class="list-group">
-            {{#each todos}}
-                {{> todo_item}}
-            {{/each}}
-        </div>
-        {{/if}}
+  {{#if any_list_selected}}
+  <div id="items-view">
+    {{#if loading}}
+    Loading...
+    {{else}}
+    <div id="new-todo-box row">
+      <div class="form-group">
+        <input class="form-control" type="text" id="new-todo" placeholder="New item"/>
+      </div>
+    </div>
+    <div class="panel">
+      {{> done_filter}}
+    </div>
+    <div id="item-list" class="list-group">
+      {{#each todos}}
+      {{> todo_item}}
+      {{/each}}
     </div>
     {{/if}}
+  </div>
+  {{/if}}
 </template>
 
 <template name="todo_item">
-    <a class="list-group-item todo {{done_class}}">
-        <h4 class="list-group-item-heading">
-            {{#if editing}}
-            <div class="edit">
-                <input id="todo-input" class="form-control" type="text" value="{{text}}"/>
-            </div>
-            {{else}}
-            <div class="pull-right">
-                <span class="close destroy" aria-hidden="true">&times;</span>
-            </div>
-            <input class="check" name="markdone" type="checkbox" {{{done_checkbox}}} />
-            <span class="todo-text">{{text}}</span>
-            {{/if}}
-        </h4>
+  <a class="list-group-item todo {{done_class}}">
+    <h4 class="list-group-item-heading">
+      {{#if editing}}
+      <div class="edit">
+        <input id="todo-input" class="form-control" type="text" value="{{text}}"/>
+      </div>
+      {{else}}
+      <div class="pull-right">
+        <span class="close destroy" aria-hidden="true">&times;</span>
+      </div>
+      <input class="check" name="markdone" type="checkbox" {{{done_checkbox}}} />
+      <span class="todo-text">{{text}}</span>
+      {{/if}}
+    </h4>
 
-        <p class="list-group-item-text">
+    <p class="list-group-item-text">
 
-            {{#each tag_objs}}
+      {{#each tag_objs}}
                         <span class="badge badge-default tag removable_tag">
                             {{tag}}&nbsp;<span class="close remove" aria-hidden="true">&times;</span>
                         </span>
-            {{/each}}
-            {{#if adding_tag}}
+      {{/each}}
+      {{#if adding_tag}}
                         <span class="tag edittag">
                                 <input type="text" id="edittag-input" value=""/>
                         </span>
-            {{else}}
+      {{else}}
                         <span class="tag addtag">
                             +tag
                         </span>
-            {{/if}}
-        </p>
-    </a>
+      {{/if}}
+    </p>
+  </a>
 </template>
-
+<template name="done_filter">
+    <ul id="done-filter" class="nav nav-tabs nav-justified">
+      {{#each types}}
+        <li class="{{selected}} type"><a>{{text}}</a></li>
+      {{/each}}
+    </ul>
+</template>
 <template name="tag_filter">
-    <div id="tag-filter" class="well well-lg">
-        <strong>Tags:</strong>
-        {{#each tags}}
+  <div id="tag-filter" class="well well-lg">
+    <strong>Tags:</strong>
+    {{#each tags}}
         <span class="{{selected}} tag badge">
             {{tag_text}} ({{count}})
         </span>
-        {{/each}}
-    </div>
+    {{/each}}
+  </div>
 
 </template>

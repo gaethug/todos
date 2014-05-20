@@ -160,6 +160,11 @@ Template.todos.events(okCancelEvents(
       evt.target.value = '';
     }
   }));
+Template.todos.events({
+    'click .done_item': function () {
+      Todos.update(this._id, {$set: {done: !this.done}});
+    }
+});
 
 Template.todos.todos = function () {
   // Determine which todos to display in main pane,
@@ -173,6 +178,14 @@ Template.todos.todos = function () {
   var tag_filter = Session.get('tag_filter');
   if (tag_filter)
     sel.tags = tag_filter;
+
+  var done_filter = Session.get('done_filter');
+  console.log(done_filter);
+  if (done_filter && done_filter!="all"){
+    sel.done = done_filter=="done"?true:false;
+  }
+
+
 
   return Todos.find(sel, {sort: {timestamp: 1}});
 };
@@ -256,6 +269,25 @@ Template.todo_item.events(okCancelEvents(
       Session.set('editing_addtag', null);
     }
   }));
+////////// Done Filter //////////
+
+// Pick out the unique tags from all todos in current list.
+Template.done_filter.types = function () {
+  return [{type:"all",text:"All"},{type:"done",text:"Done"},{type:"undone",text:"Undone"}];
+};
+
+Template.done_filter.selected = function () {
+  return Session.equals('done_filter', this.type) ? 'active' : '';
+};
+
+Template.done_filter.events({
+  'mousedown .type': function () {
+    if (Session.equals('done_filter', this.type))
+      Session.set('done_filter', null);
+    else
+      Session.set('done_filter', this.type);
+  }
+});
 
 ////////// Tag Filter //////////
 
